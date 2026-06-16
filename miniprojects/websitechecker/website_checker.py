@@ -2,7 +2,7 @@ import requests
 def check_website(website):
     try:
         response = requests.get(website, timeout=5)
-        print(f"URL checked: {url}")
+        print(f"URL checked: {website}")
         print(f"Final URL: {response.url}")
         print(f"Final status code: {response.status_code}")
         if response.status_code == 200:
@@ -14,15 +14,17 @@ def check_website(website):
         else:
             return (f"{response.status_code}: Website responded with another status")
     except requests.exceptions.Timeout:
-        print("Error: timeout")
+        return "Error: timeout"
     except requests.exceptions.ConnectionError:
-        print("Error: connection")
+        return "Error: connection"
     except requests.exceptions.RequestException as error:
-        print("Error:", error)
+        return f"Error:, {error}"
 
 while True:
     print("Type \"&\" to quit")
-    website = input("URL: ")
+    website = input("URL: ").strip()
+    if not website.startswith("https://"):
+        website = "https://" + website
     if website == "&":
         break
     print(check_website(website))
