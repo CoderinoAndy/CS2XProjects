@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page 1</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="HTML + CSS/favicons/favicon.png">
+</head>
+<body>
+    <button onclick="skibidi()" style="font-size:25px; background-color:gray; color:lightblue; border-radius:25px">Click me!</button>
+    <!--Learning some JavaScript-->
+    <p id="greeting">Hello</p>
+    <script>
+        function skibidi(){
+            const greeting = document.getElementById("greeting");
+
+            if (greeting.innerHTML === "Goodbye") {
+                greeting.innerHTML = "Hello again";
+            } else {
+                greeting.innerHTML = "Goodbye";
+            }
+        }
+    </script>
+</body>
+</html>
