@@ -1,0 +1,14 @@
+h1{
+    border-bottom: solid, 3px, red;
+    border-radius: 2px;
+}
+#p1{
+    border: dotted, 4px, green;
+}
+#p2{
+    border: dotted, 4px, orange;
+}
+#p3{
+    border-top: solid, 2px, plum;
+    border-radius: 3px;
+}

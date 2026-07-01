@@ -1,0 +1,17 @@
+body{
+    margin: 100px;
+}
+.box{
+    border: 2px, solid;
+    font-size: 5em;
+    width: 250px;
+    height: 250px;
+}
+#box1{
+    background-color: rgb(168, 10, 10);
+    margin-bottom: 50px;
+    margin-left: 500px;
+}
+#box2{
+    background-color: rgb(96, 96, 240);
+}

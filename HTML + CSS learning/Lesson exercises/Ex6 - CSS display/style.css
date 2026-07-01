@@ -1,0 +1,14 @@
+.block{
+    display: block;
+    border-radius: 5px;
+    height: 20px;
+    border: 1px solid rgb(199, 199, 199);
+}
+
+#customerserviceyap, .yesno{
+    display: inline-block;
+    vertical-align: middle;
+}
+#customerserviceyap{
+    width: 200px;
+}

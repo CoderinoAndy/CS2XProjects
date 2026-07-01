@@ -1,0 +1,44 @@
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+p{
+    margin-bottom: 0px;
+    margin-top: 0px;
+    font-family: Tahoma;
+}
+.previewpet{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.profile{
+    border-radius: 50px;
+    height: 50px;
+    width: 50px;
+    display: inline-block;
+    margin-right: 10px;
+}
+.petinfo{
+    display: inline-block;
+}
+.popularity, .animal{
+    color: gray;
+}
+.name{
+    weight: bold;
+}
+.follow{
+    background-color: rgb(67, 94, 252);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-family: Tahoma;
+    margin-left: 135px;
+    height: 33px;
+    width: 60px;
+    cursor: pointer;
+}

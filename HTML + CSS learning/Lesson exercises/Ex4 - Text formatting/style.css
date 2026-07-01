@@ -1,0 +1,41 @@
+tahome{
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#Tahoma{
+    font-family: Tahoma;
+    font-weight: 1000;
+    font-size: 40px;
+}
+
+.Verdana{
+    font-family: Verdana;
+}
+
+#title{
+    margin-bottom: 0;
+}
+
+#subtitle{
+    margin-top: 7.4px;
+    color: rgb(136, 134, 134);
+    font-weight: normal;
+}
+
+#description{
+    width: 300px;
+}
+
+#start{
+    background-color: rgb(14, 150, 14);
+    border: none;
+    height: 36px;
+    width: 110px;
+    border-radius: 10px;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+}
