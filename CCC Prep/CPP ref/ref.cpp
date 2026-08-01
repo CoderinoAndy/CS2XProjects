@@ -14,6 +14,11 @@ int main(){
     for(int i = 0; i < n; i++){
         cin >> nums[i];
     }
+    // for loop iterating through elements
+    vector<int> hello = {"banana", "apple", "berry", "cherry"};
+    for(const auto& element : hello){
+        cout << element;
+    }
 
     // sorting ascending
     sort(nums.begin(), nums.end());
