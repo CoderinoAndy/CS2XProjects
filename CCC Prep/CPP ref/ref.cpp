@@ -42,15 +42,10 @@ int main(){
     q.pop();
 
     // Creating a matrix
-    int rows;
-    int cols;
-    cin >> rows >> cols;
-    auto matrix = vector<vector<int>>(rows, vector<int>(cols));
-    vector<vector<int>> matrix(rows, vector<int>(cols));
+    auto matrix = vector<vector<int>>(5, vector<int>(5));
     // Reading a mtrix
-    cout << matrix[1][2];
-    for (int r = 0; r < rows; r++){
-        for(int c = 0; c < cols; c++){
+    for (int r = 0; r < 5; r++){
+        for(int c = 0; c < 5; c++){
             cin >> matrix[r][c];
             //or
             cout << matrix[r][c];

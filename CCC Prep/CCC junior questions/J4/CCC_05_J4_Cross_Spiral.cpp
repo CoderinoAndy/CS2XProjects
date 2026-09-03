@@ -1,125 +1,128 @@
-// This one looks really hard... we ball anyway!
 #include <iostream>
 #include <string>
+#include <algorithm>
 #include <vector>
 #include <utility>
 using namespace std;
 
+
+
 int main(){
-    int outlineW;
-    cin >> outlineW;
-    int outlineH;
-    cin >> outlineH;
-    int cutoutW;
-    cin >> cutoutW;
-    int cutoutH;
-    cin >> cutoutH;
+    // rectangle definitions
+    int outwidth;
+    int outheight;
+    cin >> outwidth;
+    cin >> outheight;
+    int inwidth;
+    int inheight;
+    cin >> inwidth;
+    cin >> inheight;
     int steps;
     cin >> steps;
 
-    int column  = outlineW - (2*cutoutW);
-    int row = 1;
+    // attempt to create boundaries
+    vector<pair<int, int>> boundaries;
+    // top left
+    for(int column = 1; column <= inwidth; ++column){
+        for(int row = 1; row <= inheight; ++row){
+            boundaries.push_back(make_pair(column, row));
+        }
+    }
+    // bottom left
+    for(int column = 1; column <= inwidth; ++column){
+        for(int row = outheight - inheight + 1; row <= outheight; ++row){
+            boundaries.push_back(make_pair(column, row));
+        }
+    }
+    // top right
+    for(int column = outwidth - inwidth + 1; column <= outwidth; ++column){
+        for(int row = 1; row <= inheight; ++row){
+            boundaries.push_back(make_pair(column, row));
+        }
+    }
+    // bottom right
+    for(int column = outwidth - inwidth + 1; column <= outwidth; ++column){
+        for(int row = outheight - inheight + 1; row <= outheight; ++row){
+            boundaries.push_back(make_pair(column, row));
+        }
+    }
+    // boundary testing:
+    // int count = boundaries.size();
+    // for(const auto& element : boundaries){
+    //     cout << "(" << element.first << ", " << element.second << ")" << "\n";
+    // }
 
-    vector<pair<int><int>> boundaries;
-    // constructing boundary coordinates
-    int x;
-    int y;
-   for(int x = 1; x < outlineW; ++x){
-        for(int y = 1; y < outlineH; ++y){
-            if(x <= cutoutW && y <= cutoutH){
-                boundaries.push_back(make_pair(x, y));
-                // This will form the top left boundary
-            } else if(x >= (outlineW - cutoutW) && (y <= cutoutH)) {
-                boundaries.push_back(make_pair(x, y));
-                // this will form the top right boundary
-            } else if(x <= cutoutW && (y >= (outlineH - cutoutH))){
-                boundaries.push_back(make_pair(x, y));
-                // this will form the bottom left boundary
-            } else if(x >= (outlineW - cutoutW) && (y >= (outlineH - cutoutH))){
-                boundaries.push_back(make_pair(x, y));
-                // this will form the bottom right boundary
-            }
+    // starting position intialization
+    int x = inwidth + 1;
+    int y = 1;
+    int mode = 0;
+    // helper function
+    auto blocked = [&](int nx, int ny) {
+        if (nx < 1 || nx > outwidth || ny < 1 || ny > outheight) {
+            return true;
         }
-   }
-   x = 1;
-   y = outlineW - (2*cutoutW);
-   pair<int><int> coordinate;
-   int count = 0;
-   while(true){
-        coordinate = {x, y};
-        while(true){
-            coordinate = {x, y};
-            if(boundaries.contains(coordinate) || x > outlineW){
-                x -= 1;
-                y += 1;
-            } else if((x + 1 > outlineW) && (y + 1 == outlineH - cutoutH)){
-                break;
-            } else {
+        return find(boundaries.begin(), boundaries.end(), make_pair(nx, ny))
+            != boundaries.end();
+    };
+    // beginning movement
+    boundaries.push_back(make_pair(x, y));
+    while(steps > 0){
+        if(blocked(x + 1, y) && blocked(x, y + 1) && blocked(x - 1, y) && blocked(x, y - 1)){
+            break;
+        }
+        if(mode == 0){
+            if(!blocked(x + 1, y)){
                 x += 1;
-                count += 1;
-                if(count == steps){
-                    break;
-                }
-            }
-            boundaries.push_back(coordinate);
-        }
-        if(count == steps){
-            break;
-        }
-        while(true){
-            coordinate = {x, y};
-            if(boundaries.contains(coordinate || y > outlineH)){
+                steps -= 1;
+                boundaries.push_back(make_pair(x, y));
+            } else if(!blocked(x, y + 1)){
                 y += 1;
-                x -= 1;
-            } else if((y + 1) > outlineH && (x + 1 == cutoutW)){
-                break;
+                steps -= 1;
+                boundaries.push_back(make_pair(x, y));
             } else {
-                y -= 1;
-                count += 1;
-                if(count == steps){
-                    break;
-                }
+                mode = (mode + 1) % 4;
+                continue;
             }
-        }
-        if(count == steps){
-            break;
-        }
-         while(true){
-            coordinate = {x, y};
-            if(boundaries.contains(coordinate || x == 0)){
-                y -= 1;
-                x += 1;
-            } else if((x - 1) == 0 && (y - 1 == cutoutH)){
-                break;
-            } else {
-                x -= 1;
-                count += 1;
-                if(count == steps){
-                    break;
-                }
-            }
-        }
-        if(count == steps){
-            break;
-        }
-        while(true){
-            coordinate = {x, y};
-            if boundaries.contains(coordinate){
-                y -= 1;
-                x += 1;
-            } else if(){
-
-            } else {
+        } else if(mode == 1){
+            if(!blocked(x, y + 1)){
                 y += 1;
-                count += 1;
-                if(count == steps){
-                    break;
-                }
+                steps -= 1;
+                boundaries.push_back(make_pair(x, y));
+            } else if(!blocked(x - 1, y)){
+                x -= 1;
+                steps -= 1;
+                boundaries.push_back(make_pair(x, y));
+            } else {
+                mode = (mode + 1) % 4;
+                continue;
+            }
+        } else if(mode == 2){
+            if(!blocked(x - 1, y)){
+                x -= 1;
+                steps -= 1;
+                boundaries.push_back(make_pair(x, y));
+            } else if(!blocked(x, y - 1)){
+                y -= 1;
+                steps -= 1;
+                boundaries.push_back(make_pair(x, y));
+            } else {
+                mode = (mode + 1) % 4;
+                continue;
+            }
+        } else if(mode == 3) {
+            if(!blocked(x, y - 1)){
+                y -= 1;
+                steps -= 1;
+                boundaries.push_back(make_pair(x, y));
+            } else if(!blocked(x + 1, y)){
+                x += 1;
+                steps -= 1;
+                boundaries.push_back(make_pair(x, y));
+            } else {
+                mode = (mode + 1) % 4;
+                continue;
             }
         }
-        if(count == steps){
-            break;
-        }
-   }
-   cout << coordinate.first << '\n' << coordinate.second;
+    }
+    cout << x << '\n' << y;
 }
